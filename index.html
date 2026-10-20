@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הכר את העובד · 42</title>
+<meta name="description" content="רוצים פרק עליכם בסדרה של הקיוסק? כמה שאלות קצרות ותמונה טובה שלכם.">
+<meta property="og:title" content="הכר את העובד · 42">
+<meta property="og:description" content="רוצים פרק עליכם בסדרה של הקיוסק? כמה שאלות קצרות ותמונה טובה שלכם.">
+<meta name="theme-color" content="#F6F2EA">
+<link rel="icon" href="img/42_full.svg">
+<style>
+/* Rubik (SIL OFL). הדף ציבורי, אז בלי הפונטים המסחריים של הסטודיו */
+@font-face { font-family: Rubik; font-weight: 300 900; font-display: swap; src: url(fonts/rubik-hebrew.woff2) format('woff2'); unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: Rubik; font-weight: 300 900; font-display: swap; src: url(fonts/rubik-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+:root {
+  --paper: #F6F2EA;
+  --card: #FFFFFF;
+  --ink: #18181B;
+  --ink-2: #55555E;
+  --line: #E2DCCF;
+  --yellow: #F7C948;
+  --navy: #2F4B5A;
+  --red: #D9472B;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--paper); color: var(--ink); }
+body { font-family: Rubik, system-ui, sans-serif; font-size: 17px; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 520px; margin: 0 auto; padding: 20px 16px 48px; }
+
+header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 26px; }
+header .logo { width: 44px; height: auto; color: var(--ink); }
+header .tag { font-size: 13px; font-weight: 700; letter-spacing: .02em; color: var(--ink-2); }
+
+.hero h1 { font-size: 44px; line-height: 1; font-weight: 900; margin: 0 0 6px; letter-spacing: -.01em; }
+.hero h1 .mark { background: linear-gradient(transparent 58%, var(--yellow) 58%, var(--yellow) 92%, transparent 92%); padding: 0 2px; }
+.hero p { margin: 10px 0 0; font-size: 19px; color: var(--ink-2); }
+.hero p b { color: var(--ink); }
+
+.ep { display: flex; align-items: center; gap: 12px; margin: 22px 0 28px; padding: 10px 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; }
+.ep img { width: 52px; height: 52px; border-radius: 50%; flex: none; }
+.ep .t { font-size: 13px; color: var(--ink-2); }
+.ep .n { font-weight: 700; font-size: 16px; line-height: 1.25; }
+
+form { display: grid; gap: 18px; }
+.field label { display: block; font-weight: 700; font-size: 17px; margin-bottom: 6px; }
+.field .hint { display: block; font-weight: 400; font-size: 14px; color: var(--ink-2); margin-top: -3px; margin-bottom: 7px; }
+.req { color: var(--red); }
+input[type=text], textarea {
+  width: 100%; font: inherit; font-size: 17px; color: var(--ink);
+  background: var(--card); border: 1.5px solid var(--line); border-radius: 12px; padding: 12px 14px;
+  outline: none; transition: border-color .15s;
+}
+textarea { min-height: 84px; resize: vertical; }
+input[type=text]:focus, textarea:focus { border-color: var(--ink); }
+.count { text-align: left; font-size: 12px; color: var(--ink-2); margin-top: 4px; }
+
+.field .photo { position: relative; display: flex; align-items: center; gap: 14px; margin: 0; padding: 14px; background: var(--card); border: 1.5px dashed #C9C1B0; border-radius: 14px; cursor: pointer; font-weight: 400; }
+.photo input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+.photo .thumb { width: 72px; height: 72px; border-radius: 50%; background: var(--paper); flex: none; display: grid; place-items: center; overflow: hidden; }
+.photo .thumb img { width: 100%; height: 100%; object-fit: cover; }
+.photo .thumb svg { width: 30px; height: 30px; color: var(--ink-2); }
+.photo .txt b { display: block; }
+.photo .txt span { display: block; font-size: 14px; line-height: 1.4; color: var(--ink-2); margin-top: 2px; }
+.photo.has { border-style: solid; border-color: var(--ink); }
+
+.consent { display: flex; gap: 10px; align-items: flex-start; font-size: 15px; line-height: 1.45; }
+.consent input { width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--ink); flex: none; }
+
+.hp { position: absolute; right: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+button { font: inherit; font-weight: 900; font-size: 20px; color: var(--ink); background: var(--yellow); border: 0; border-radius: 14px; padding: 15px; cursor: pointer; box-shadow: 0 3px 0 var(--ink); transition: transform .08s, box-shadow .08s; }
+button:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--ink); }
+button[disabled] { opacity: .6; cursor: default; }
+.err { color: var(--red); font-weight: 700; font-size: 15px; min-height: 1.4em; margin: -6px 0 0; }
+
+.done { display: none; text-align: center; padding: 40px 8px; }
+.done .big { font-size: 40px; font-weight: 900; line-height: 1.05; margin: 14px 0 8px; }
+.done p { color: var(--ink-2); font-size: 18px; margin: 0; }
+.done .stamp { display: inline-block; border: 3px solid var(--ink); border-radius: 10px; padding: 4px 12px; font-weight: 900; transform: rotate(-4deg); background: var(--yellow); }
+body.sent form, body.sent .ep { display: none; }
+body.sent .done { display: block; }
+
+footer { margin-top: 30px; font-size: 13px; color: var(--ink-2); text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="tag">סדרה בקיוסק של 42</span>
+    <img class="logo" src="img/42_full.svg" alt="42">
+  </header>
+
+  <section class="hero">
+    <h1><span class="mark">הכר את העובד</span></h1>
+    <p>רוצים פרק עליכם? <b>כמה שאלות קצרות ותמונה טובה שלכם</b>, ואנחנו נעשה את השאר.</p>
+  </section>
+
+  <div class="ep">
+    <img src="img/shahar.webp" alt="">
+    <div>
+      <div class="t">הפרק שרץ עכשיו</div>
+      <div class="n">שחר, העוזרים של ימימה</div>
+    </div>
+  </div>
+
+  <form id="f" novalidate>
+    <div class="field">
+      <label for="name">שם פרטי ומשפחה <span class="req">*</span></label>
+      <input type="text" id="name" maxlength="60" autocomplete="name" required>
+    </div>
+    <div class="field">
+      <label for="role">התפקיד ב-42 <span class="req">*</span></label>
+      <input type="text" id="role" maxlength="80" placeholder="למשל: מנהלת לקוח, עורך וידאו" required>
+    </div>
+    <div class="field">
+      <label for="since">ב-42 מאז</label>
+      <input type="text" id="since" maxlength="30" inputmode="numeric" placeholder="למשל: 2021">
+    </div>
+    <div class="field">
+      <label for="what">מה אתם עושים ב-42? <span class="req">*</span></label>
+      <span class="hint">במשפט אחד, כאילו מסבירים לסבתא.</span>
+      <textarea id="what" maxlength="300" required></textarea>
+      <div class="count" data-for="what"></div>
+    </div>
+    <div class="field">
+      <label for="love">מה הכי אוהבים בעבודה?</label>
+      <textarea id="love" maxlength="300"></textarea>
+      <div class="count" data-for="love"></div>
+    </div>
+    <div class="field">
+      <label for="secret">משהו שלא יודעים עליכם <span class="req">*</span></label>
+      <span class="hint">תחביב, כישרון מוזר, סיפור קצר.</span>
+      <textarea id="secret" maxlength="300" required></textarea>
+      <div class="count" data-for="secret"></div>
+    </div>
+
+    <div class="field">
+      <label>תמונה טובה שלכם <span class="req">*</span></label>
+      <label class="photo" id="photoBox">
+        <input type="file" id="photo" accept="image/*">
+        <span class="thumb" id="thumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+        <span class="txt"><b id="photoTitle">בחירת תמונה</b><span>פנים ברורות, אור טוב, מבט למצלמה. בלי משקפי שמש ובלי פילטרים.</span></span>
+      </label>
+    </div>
+
+    <label class="consent">
+      <input type="checkbox" id="consent">
+      <span>אני מאשר/ת ל-42 להשתמש בתשובות ובתמונה שלי כדי להכין עליי פרק בסדרה "הכר את העובד", שיוצג בקיוסק במשרד. <span class="req">*</span></span>
+    </label>
+
+    <div class="hp" aria-hidden="true"><input type="text" id="website" tabindex="-1" autocomplete="off"></div>
+
+    <p class="err" id="err" role="alert"></p>
+    <button type="submit" id="go">שליחה</button>
+  </form>
+
+  <div class="done" id="done">
+    <span class="stamp">התקבל</span>
+    <div class="big">תודה!</div>
+    <p>אולי הפרק הבא בקיוסק יהיה עליכם.</p>
+  </div>
+
+  <footer>ארבעים ושתיים · סושיאל | דיגיטל | קריאייטיב</footer>
+</div>
+
+<script>
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyY4I9YyTE_zmXAbJjLLR1zp8tOYJbVLqJLLbR-2SZwMXfSfht8F_T06bI1qlLAqVdY/exec';
+const $ = (id) => document.getElementById(id);
+let photoData = '';
+
+// השרת של Apps Script מתעורר לאט בפעם הראשונה, אז מעירים אותו כבר בטעינה
+fetch(SCRIPT_URL, { method: 'POST', body: JSON.stringify({ action: 'ping' }) }).catch(() => {});
+
+document.querySelectorAll('.count').forEach((el) => {
+  const ta = $(el.dataset.for);
+  const upd = () => { el.textContent = ta.value.length > 220 ? `${ta.value.length}/300` : ''; };
+  ta.addEventListener('input', upd);
+});
+
+// התמונה מוקטנת בטלפון לפני השליחה (עד 1600px, JPEG), כדי שתעלה מהר גם בסלולר
+$('photo').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  $('photoTitle').textContent = 'מכינים את התמונה…';
+  try {
+    photoData = await shrink(file, 1600, 0.88);
+    $('thumb').innerHTML = `<img src="${photoData}" alt="">`;
+    $('photoBox').classList.add('has');
+    $('photoTitle').textContent = 'התמונה מוכנה. אפשר להחליף';
+    $('err').textContent = '';
+  } catch {
+    photoData = '';
+    $('photoTitle').textContent = 'בחירת תמונה';
+    $('err').textContent = 'לא הצלחנו לקרוא את התמונה. כדאי לנסות תמונה אחרת.';
+  }
+});
+
+function shrink(file, max, q) {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(file);
+    const img = new Image();
+    img.onload = () => {
+      const s = Math.min(1, max / Math.max(img.naturalWidth, img.naturalHeight));
+      const c = document.createElement('canvas');
+      c.width = Math.round(img.naturalWidth * s);
+      c.height = Math.round(img.naturalHeight * s);
+      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      URL.revokeObjectURL(url);
+      resolve(c.toDataURL('image/jpeg', q));
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('decode')); };
+    img.src = url;
+  });
+}
+
+$('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const v = (id) => $(id).value.trim();
+  const missing = [];
+  if (!v('name')) missing.push('שם');
+  if (!v('role')) missing.push('תפקיד');
+  if (!v('what')) missing.push('מה אתם עושים');
+  if (!v('secret')) missing.push('משהו שלא יודעים');
+  if (!photoData) missing.push('תמונה');
+  if (missing.length) { $('err').textContent = 'חסר: ' + missing.join(', '); return; }
+  if (!$('consent').checked) { $('err').textContent = 'צריך לסמן את האישור לפני השליחה'; return; }
+
+  $('err').textContent = '';
+  $('go').disabled = true;
+  $('go').textContent = 'שולחים…';
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      body: JSON.stringify({
+        action: 'submit', name: v('name'), role: v('role'), since: v('since'),
+        what: v('what'), love: v('love'), secret: v('secret'),
+        photo: photoData, consent: true, website: $('website').value,
+      }),
+    });
+    const j = await res.json();
+    if (!j.success) throw new Error(j.message || 'error');
+    document.body.classList.add('sent');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    $('err').textContent = navigator.onLine
+      ? 'משהו השתבש בשליחה. כדאי לנסות שוב.'
+      : 'אין חיבור לאינטרנט. כדאי לבדוק ולנסות שוב.';
+    $('go').disabled = false;
+    $('go').textContent = 'שליחה';
+  }
+});
+</script>
+</body>
+</html>
