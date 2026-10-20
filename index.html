@@ -205,7 +205,10 @@ function shrink(file, max, q) {
       const c = document.createElement('canvas');
       c.width = Math.round(img.naturalWidth * s);
       c.height = Math.round(img.naturalHeight * s);
-      c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+      const ctx = c.getContext('2d');
+      ctx.fillStyle = '#fff'; // תמונה עם שקיפות (PNG) לא תצא עם רקע שחור ב-JPEG
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.drawImage(img, 0, 0, c.width, c.height);
       URL.revokeObjectURL(url);
       resolve(c.toDataURL('image/jpeg', q));
     };
