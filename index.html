@@ -129,6 +129,16 @@ footer { margin-top: 30px; font-size: 13px; color: var(--ink-2); text-align: cen
       <div class="count" data-for="love"></div>
     </div>
     <div class="field">
+      <label for="story">סיפור הזוי שקרה לכם בעבודה</label>
+      <span class="hint">הדבר הכי מוזר שקרה ביום צילום, בפגישה או במטבחון.</span>
+      <textarea id="story" maxlength="400"></textarea>
+      <div class="count" data-for="story"></div>
+    </div>
+    <div class="field">
+      <label for="food">מאכל אהוב <span class="req">*</span></label>
+      <input type="text" id="food" maxlength="120" placeholder="למשל: שלגון אננס, בלי המקל">
+    </div>
+    <div class="field">
       <label for="secret">משהו שלא יודעים עליכם <span class="req">*</span></label>
       <span class="hint">תחביב, כישרון מוזר, סיפור קצר.</span>
       <textarea id="secret" maxlength="300" required></textarea>
@@ -224,6 +234,7 @@ $('f').addEventListener('submit', async (e) => {
   if (!v('name')) missing.push('שם');
   if (!v('role')) missing.push('תפקיד');
   if (!v('what')) missing.push('מה אתם עושים');
+  if (!v('food')) missing.push('מאכל אהוב');
   if (!v('secret')) missing.push('משהו שלא יודעים');
   if (!photoData) missing.push('תמונה');
   if (missing.length) { $('err').textContent = 'חסר: ' + missing.join(', '); return; }
@@ -237,7 +248,7 @@ $('f').addEventListener('submit', async (e) => {
       method: 'POST',
       body: JSON.stringify({
         action: 'submit', name: v('name'), role: v('role'), since: v('since'),
-        what: v('what'), love: v('love'), secret: v('secret'),
+        what: v('what'), love: v('love'), story: v('story'), food: v('food'), secret: v('secret'),
         photo: photoData, consent: true, website: $('website').value,
       }),
     });
